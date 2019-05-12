@@ -2,6 +2,7 @@ package Main;
 
 class Produto {
 
+    long id;
     String descricao, marca;
     double preco;
 
@@ -35,9 +36,15 @@ class Produto {
         return preco;
     }
 
+    public void SetId(long id){
+        this.id = id;
+    }
     
+    public long GetId(){
+        return id;
+    }
      public String ToString() {
-        return "Produto - Descrição:" + descricao+", Marca: "+ marca+", Preço: "+ preco+".";
+        return "Produto - ID:"+ id +", Descrição:" + descricao+", Marca: "+ marca+", Preço: "+ preco+".";
     }
     
 }
