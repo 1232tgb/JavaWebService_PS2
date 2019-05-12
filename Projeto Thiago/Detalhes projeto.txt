@@ -1,1 +1,13 @@
 Projeto de WebService Thiago Brito
+
+
+create table produto
+
+
+create table Produtos(
+id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+Descrição VARCHAR(255) NOT NULL,
+Marca VARCHAR(255) NOT NULL,
+Preço DOUBLE not null,
+PRIMARY KEY (id)
+);
