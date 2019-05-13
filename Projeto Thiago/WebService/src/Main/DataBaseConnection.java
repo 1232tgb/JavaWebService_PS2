@@ -8,21 +8,17 @@ public class DataBaseConnection {
     Connection cn;
     PreparedStatement stmtC, stmtR, stmtU, stmtD, stmtRU;
 
-    public DataBaseConnection() {
+    public DataBaseConnection(Connection cn) {
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            System.out.println("Classe conectada");
-            cn = DriverManager.getConnection("jdbc:derby://localhost:1527/Produto");
-            System.out.println("Conexão ao banco de dados efetuada");
-            //this.cn = cn;
-
+            this.cn = cn;
             stmtC = cn.prepareStatement("Insert into Produtos(descrição, marca, preço) values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stmtR = cn.prepareStatement("Select * from Produtos");
             stmtU = cn.prepareStatement("Update Produtos SET Descrição=?, Marca=?, Preço=? WHERE Id=?");
             stmtD = cn.prepareStatement("Delete from Produtos WHERE id=?");
             stmtRU = cn.prepareStatement("Select * FROM Produtos WHERE id=?");
         } catch (Exception e) {
-            System.out.println("ocorreu um erro " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("ocorreu um erro: " + e.getMessage());
         }
 
     }
