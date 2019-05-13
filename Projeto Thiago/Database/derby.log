@@ -63,3 +63,9 @@ java.sql.SQLException: Banco de dados 'Produtos' não encontrado.
 ============= end nested exception, level (1) ===========
 Cleanup action completed
 Sun May 12 20:38:35 BRT 2019 Thread[DRDAConnThread_3,5,main] (DATABASE = Produtos), (DRDAID = {2}), Banco de dados 'Produtos' não encontrado.
+----------------------------------------------------------------
+Sun May 12 21:23:57 BRT 2019: Shutting down Derby engine
+----------------------------------------------------------------
+Sun May 12 21:23:57 BRT 2019:
+Encerrando a instância a816c00e-016a-ae3b-fbad-ffff9a374b2d
+----------------------------------------------------------------
