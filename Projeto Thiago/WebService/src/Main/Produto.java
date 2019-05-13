@@ -6,6 +6,8 @@ class Produto {
     String descricao, marca;
     double preco;
 
+    public Produto(){}
+    
     public Produto(String descricao, String marca, double preco) {
         this.descricao = descricao;
         this.marca = marca;
