@@ -4,11 +4,11 @@ import java.sql.*;
 
 public class Conexao {
 
-    public Connection GetConnection(String user, String password, String url) {
+    public Connection GetConnection(String url) {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             System.out.println("Classe conectada");
-            Connection cn = DriverManager.getConnection(user, password, url);
+            Connection cn = DriverManager.getConnection(url);
             System.out.println("Conexão ao banco de dados efetuada");
             return cn;
         } catch (Exception e) {
