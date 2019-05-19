@@ -4,7 +4,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import io.dropwizard.jersey.params.*;
 import java.util.*;
-import org.skife.jdbi.v2.sqlobject.CreateSqlObject;
+
 
 @Path("/produtos")
 @Produces(MediaType.APPLICATION_JSON)
@@ -41,6 +41,17 @@ public class Resource {
     }
     
     
-    //Fazer o update
+    @PUT
+    @Path("{id}")
+    public Response update(@PathParam ("id") LongParam id, Produto p){
+        p.SetId(id.get());
+        Produto novoProduto = dao.Update(p);
+        
+        if(novoProduto != null){
+            return Response.ok(novoProduto).build();
+        }
+        
+        throw new WebApplicationException(Response.Status.NOT_FOUND);
+    }
     
 }

@@ -5,8 +5,8 @@ import java.util.*;
 
 public class DataBaseConnection {
 
-    Connection cn;
-    PreparedStatement stmtC, stmtR, stmtU, stmtD, stmtRU;
+   private Connection cn;
+   private PreparedStatement stmtC, stmtR, stmtU, stmtD, stmtRU;
 
     public DataBaseConnection(Connection cn) {
         try {
