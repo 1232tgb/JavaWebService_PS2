@@ -2,12 +2,13 @@ package Main;
 
 class Produto {
 
-    long id;
-    String descricao, marca;
-    double preco;
+    public long id;
+    public String descricao, marca;
+    public double preco;
 
-    public Produto(){}
-    
+    public Produto() {
+    }
+
     public Produto(String descricao, String marca, double preco) {
         this.descricao = descricao;
         this.marca = marca;
@@ -38,15 +39,16 @@ class Produto {
         return preco;
     }
 
-    public void SetId(long id){
+    public void SetId(long id) {
         this.id = id;
     }
-    
-    public long GetId(){
+
+    public long GetId() {
         return id;
     }
-     public String ToString() {
-        return "Produto - ID:"+ id +", Descrição:" + descricao+", Marca: "+ marca+", Preço: "+ preco+".";
+
+    public String ToString() {
+        return "Produto - ID:" + id + ", Descrição:" + descricao + ", Marca: " + marca + ", Preço: " + preco + ".";
     }
-    
+
 }

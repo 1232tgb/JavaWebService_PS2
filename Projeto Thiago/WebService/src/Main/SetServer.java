@@ -4,7 +4,7 @@ import java.util.logging.*;
 
 public class SetServer {
     //host local
-    //http://localhost:8080/Catalogo/produtos
+    // http://localhost:8080/Catalogo/produtos
     public static void main(String[] args) {
         Server s = new Server();
         try {

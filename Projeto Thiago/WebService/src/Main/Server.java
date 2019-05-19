@@ -13,7 +13,7 @@ public class Server extends Application<Configuration>{
         Conexao cn = new Conexao();
         DataBaseConnection dao = new DataBaseConnection(cn.GetConnection("jdbc:derby://localhost:1527/Produto"));
         e.jersey().register(new Resource(dao));
-        e.jersey().setUrlPattern("/Catalogo/*");
+        e.jersey().setUrlPattern("/Catalogo");
     }
     
 
