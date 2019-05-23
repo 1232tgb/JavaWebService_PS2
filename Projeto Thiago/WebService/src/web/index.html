@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-reboot.min.css">
+
+    <style>
+        .option {background-color: #00A3CA;}
+    </style>
+
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container header">
+        <div class="row justify-content-md-center">
+            <button type="button" class="btn btn-light option" onclick="showDiv(0)">
+                <div class="col-sm-4">
+                    CREATE
+                </div>
+            </button>
+            <button type="button" class="btn btn-light option" onclick="showDiv(1)">
+                <div class="col-sm-4">
+                    READ
+                </div>
+            </button>
+            <button type="button" class="btn btn-light option" onclick="showDiv(2)">
+                <div class="col-sm-4">
+                    UPDATE
+                </div>
+            </button>
+            <button type="button" class="btn btn-light option" onclick="showDiv(3)">
+                <div class="col-sm-4">
+                    DELETE
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <div class="body">
+        <div class="secao" id="create">
+            <div class="container p-3 mb-2 bg-secondary text-white">
+                <h2>Inserir produto</h2>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input placeholder="Descrição do produto" id="create-descricao" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <input placeholder="Marca do produto" id="create-marca" type="text" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <input placeholder="Preço do produto" id="create-preco" type="number" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <button onclick="Create()" class="btn btn-primary">Inserir produto</button>
+                    </div>
+                    <div>
+                        <p id="insert-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="secao" id="read">
+            <div class="container p-3 mb-2 bg-secondary text-white">
+                <h2>Ler produtos</h2>
+                <div style="margin-bottom:10px;">
+                    <button onclick="Read()" class="btn btn-primary">Get all products</button>
+                </div>
+                <table class="table" id="tabela">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Descrição</th>
+                            <th>Marca</th>
+                            <th>Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="secao" id="update">
+            <div class="container p-3 mb-2 bg-secondary text-white">
+                <h2>Atualizar produto</h2>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input placeholder="Descrição do produto" id="update-descricao" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <input placeholder="Marca do produto" id="update-marca" type="text" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <input placeholder="Preço do produto" id="update-preco" type="number" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <input placeholder="Id do produto" id="update-id" type="number" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <button style="margin-top: 10%;" onclick="Update()" class="btn btn-primary">Atualizar
+                            produto</button>
+                    </div>
+                    <div>
+                        <p id="update-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="secao" id="delete">
+            <div class="container p-3 mb-2 bg-secondary text-white">
+                <h2>Deletar produto</h2>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input placeholder="Id do produto" id="delete-id" type="number" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <button onclick="Delete()" class="btn btn-primary">Deletar produto</button>
+                    </div>
+                    <div>
+                        <p id="update-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let secoes;
+
+        function showDiv(value) {
+            for (let i = 0; i < secoes.length; i++) {
+                if (i == value)
+                    $(secoes[i]).show();
+                else
+                    $(secoes[i]).hide();
+            }
+        }
+
+        async function Create() {
+            let descricao = $("#create-descricao");
+            let marca = $("#create-marca");
+            let preco = $("#create-preco");
+
+            if (descricao.val() == "") {
+                alert("Insira o valor da descrição.");
+                return;
+            }
+
+            if (marca.val() == "") {
+                alert("Insira o valor da marca.");
+                return;
+            }
+
+            if (preco.val() == "") {
+                alert("Insira o valor do preco.");
+                return;
+            }
+
+            const URL = `/Catalogo/Produtos`;
+            const dadosProduto = {
+                'descricao': descricao.val(),
+                'marca': marca.val(),
+                'preco': preco.val()
+            };
+
+            const postRequest = {
+                method: 'POST',
+                body: JSON.stringify(dadosProduto),
+                headers: {
+                    'Content-type': 'application/json;charset=UTF-8'
+                }
+            };
+            try {
+                fetch(URL, postRequest).then(resposta => resposta.json()).then(jsonResponse => {
+                    alert(`O produto foi inserido - id: ${jsonResponse.id}`);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+            descricao.val("");
+            marca.val("");
+            preco.val("");
+
+        }
+
+        async function Read() {
+            const URL = `/Catalogo/Produtos`;
+            try {
+                fetch(URL).then(resposta => resposta.json()).then(jsonResponse => {
+                    $("#tabela tbody").empty();
+                    let items = jsonResponse;
+                    let str = '';
+
+                    for (let i = 0; i < items.length; i++) {
+                        str += `<tr>
+                            <td>${items[i].id}</td>
+                            <td>${items[i].descricao}</td>
+                            <td>${items[i].marca}</td>
+                            <td>${items[i].preco}</td>
+                        </tr>`
+                    }
+                    $("#tabela tbody").append(str);
+
+                })
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function Update() {
+            let descricao = $("#update-descricao");
+            let marca = $("#update-marca");
+            let preco = $("#update-preco");
+            let id = $("#update-id");
+
+
+
+            if (descricao.val() == "") {
+                alert("Insira o valor da descrição.");
+                return;
+            }
+
+            if (marca.val() == "") {
+                alert("Insira o valor da marca.");
+                return;
+            }
+
+            if (preco.val() == "") {
+                alert("Insira o valor do preco.");
+                return;
+            }
+
+            if (id.val() == "") {
+                alert("Insira o valor do id.");
+                return;
+            }
+
+            const URL = `/Catalogo/Produtos/${id.val()}`;
+            const dadosProduto = {
+                'id': id.val(),
+                'descricao': descricao.val(),
+                'marca': marca.val(),
+                'preco': preco.val()
+            };
+
+            const PutRequest = {
+                method: 'PUT',
+                body: JSON.stringify(dadosProduto),
+                headers: {
+                    'Content-type': 'application/json;charset=UTF-8'
+                }
+            };
+
+            try {
+                fetch(URL, PutRequest).then(response => alert(`O produto foi atualizado`));
+            } catch (error) {
+                console.error(error);
+            }
+            $("#update-descricao").val("");
+            $("#update-marca").val("");
+            $("#update-preco").val("");
+            $("#update-id").val("");
+
+        }
+
+        async function Delete() {
+            let id = $("#delete-id");
+
+            if (id.val() == "") {
+                alert("Insira o valor do id.");
+                return;
+            }
+
+            const URL = `/Catalogo/Produtos/${id.val()}`;
+            const DeleteRequest = {
+                method: 'DELETE'
+            }
+
+            try {
+                fetch(URL, DeleteRequest).then(resposta => alert("O produto foi deletado."));
+            } catch (error) {
+                console.error(error);
+            }
+
+            $("#delete-id").val("");
+        }
+
+        $(() => {
+            secoes = $(".secao");
+            for (let i = 0; i < secoes.length; i++) {
+                $(secoes[i]).hide();
+            }
+        });
+
+    </script>
+
+
+</body>
+
+</html>

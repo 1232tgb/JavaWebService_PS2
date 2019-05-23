@@ -1,6 +1,5 @@
 package Main;
 
-import io.dropwizard.jackson.*;
 import io.dropwizard.jersey.params.LongParam;
 import java.util.List;
 import javax.ws.rs.DELETE;
@@ -16,7 +15,6 @@ import javax.ws.rs.core.Response;
 
 
 @Path("/Produtos")
-//@Produces(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class Resource {
 
@@ -56,9 +54,9 @@ public class Resource {
     public Response update(@PathParam ("id") LongParam id, Produto p){
         p.SetId(id.get());
         Produto novoProduto = dao.Update(p);
-        
+        System.out.println(novoProduto.ToString());
         if(novoProduto != null){
-            return Response.ok(novoProduto).build();
+            return Response.ok().build();
         }
         
         throw new WebApplicationException(Response.Status.NOT_FOUND);
